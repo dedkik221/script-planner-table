@@ -105,6 +105,90 @@
         font-size: 0.9rem;
       }
 
+      .context-panel {
+        margin-bottom: 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #fff;
+        overflow: hidden;
+      }
+
+      .context-head {
+        margin: 0;
+        padding: 12px 14px;
+        background: color-mix(in srgb, var(--pink-soft) 45%, #fff 55%);
+        border-bottom: 1px solid var(--line);
+        color: var(--pink);
+        font-size: 1rem;
+        font-weight: 800;
+      }
+
+      .context-body {
+        padding: 12px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .context-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .context-card {
+        border: 1px solid #e7ddf0;
+        border-radius: 10px;
+        background: #fff;
+        padding: 10px;
+      }
+
+      .context-card h3 {
+        margin: 0 0 7px;
+        color: #87245b;
+        font-size: 0.95rem;
+      }
+
+      .context-card p {
+        margin: 0 0 6px;
+        line-height: 1.4;
+      }
+
+      .context-card p:last-child {
+        margin-bottom: 0;
+      }
+
+      .context-card ul,
+      .context-card ol {
+        margin: 6px 0;
+        padding-left: 18px;
+        line-height: 1.35;
+      }
+
+      .context-card li {
+        margin-bottom: 4px;
+      }
+
+      .context-card li:last-child {
+        margin-bottom: 0;
+      }
+
+      .context-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        background: #eef4ff;
+        color: var(--blue);
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+
+      .context-proposal h3 {
+        margin-bottom: 6px;
+      }
+
       .series-block {
         margin-bottom: 18px;
         border: 1px solid var(--line);
@@ -324,6 +408,10 @@
         .controls {
           grid-template-columns: 1fr;
         }
+
+        .context-grid {
+          grid-template-columns: 1fr;
+        }
       }
 
       @media print {
@@ -370,6 +458,101 @@
       </section>
 
       <p class="hint" id="resultHint">Показаны все вопросы.</p>
+
+      <section class="context-panel" aria-label="Контекст входящий">
+        <h2 class="context-head">Контекст входящий</h2>
+        <div class="context-body">
+          <div class="context-grid">
+            <article class="context-card">
+              <h3>Предисловие</h3>
+              <p><strong>📌 В чём проблема исходной версии</strong></p>
+              <p><strong>1. Содержание — рефлексивное.</strong></p>
+              <p>Тема проекта — это:</p>
+              <ul>
+                <li>выбор</li>
+                <li>сомнение</li>
+                <li>взросление</li>
+                <li>ответственность</li>
+                <li>профессиональное становление</li>
+              </ul>
+              <p>Это глубокая, личная история.</p>
+              <p><strong>2. Текст — рекламно-слоганный.</strong></p>
+              <p>Ответы построены как готовые формулы:</p>
+              <ul>
+                <li>«Я выбираю долгую интеллектуальную дистанцию»</li>
+                <li>«Я выбираю влияние через команду»</li>
+                <li>«Ответственность начинается раньше должности»</li>
+              </ul>
+              <p>Это язык презентации, а не живого человека.</p>
+              <p><strong>3. Визуальная подача — динамичная.</strong></p>
+              <ul>
+                <li>динамичный монтаж</li>
+                <li>резкие перебивки</li>
+                <li>эффекты</li>
+                <li>тизерная структура</li>
+                <li>«Скоро серия 2»</li>
+              </ul>
+              <p>Это стиль брендового ролика.</p>
+            </article>
+
+            <article class="context-card">
+              <h3>⚡ И вот где возникает диссонанс</h3>
+              <p>Мы пытаемся рассказать интимную историю выбора, но используем язык лозунгов и динамику рекламы.</p>
+              <p>В результате:</p>
+              <ul>
+                <li>глубина темы конфликтует с ритмом монтажа;</li>
+                <li>личность героя теряется за формулировками;</li>
+                <li>появляется ощущение постановочности.</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="context-grid">
+            <article class="context-card">
+              <span class="context-number">1</span>
+              <p><strong>Наша задача</strong> — повысить привлекательность магистратуры, одновременно показав:</p>
+              <ol>
+                <li>реальный карьерный рост выпускников;</li>
+                <li>масштаб и среду компании;</li>
+                <li>разные профессиональные траектории внутри одной экосистемы.</li>
+              </ol>
+              <p>Это «всё», но структурированное.</p>
+            </article>
+
+            <article class="context-card">
+              <span class="context-number">2</span>
+              <p><strong>Что для нас главное — точка входа?</strong></p>
+              <p>Потому что:</p>
+              <ul>
+                <li>если точка входа — магистратура, то фокус на «почему туда идти»;</li>
+                <li>если точка входа — карьера в компании, то магистратура — лишь инструмент.</li>
+              </ul>
+              <p>Это разные варианты повествования.</p>
+            </article>
+          </div>
+
+          <article class="context-card context-proposal">
+            <h3>Предложение 1. Горизонтальный полноценный ролик</h3>
+            <p>
+              Это основная версия истории — с развернутыми ответами пример V3, раскрытием среды и логикой роста. Здесь
+              уместна графика, уместна аргументированная динамика, можно аккуратно усиливать драматургию монтажом. Но
+              «вжих-пух» ради эффекта на рассказ не клеится: если есть перебивки, они должны усиливать смысл сказанного,
+              а не существовать сами по себе. Динамика появляется там, где в истории есть поворот, напряжение или
+              результат. Графика помогает понять масштаб и структуру, а не отвлекает от героя.
+            </p>
+          </article>
+
+          <article class="context-card context-proposal">
+            <h3>Предложение 2. Вертикальный формат</h3>
+            <p>
+              Это камерная версия с короткими вопросами и ответами на базе V1, но переработанными в более живую,
+              естественную форму — ближе к V2, только ещё проще и непосредственнее. Спокойный свет, крупный план,
+              паузы, ощущение личного разговора. Здесь не нужна динамика и не нужна графика — они разрушат доверие. В
+              этом формате главное — человек и его интонация. Это про искренность, а не про эффект.
+            </p>
+          </article>
+        </div>
+      </section>
 
       <main id="seriesContainer"></main>
     </div>
