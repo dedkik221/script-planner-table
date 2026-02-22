@@ -522,9 +522,9 @@
 
       function renderVariantCell(question, variantKey) {
         const cell = document.createElement("td");
-        cell.className = `${variantKey}-cell`;
+        cell.className = `${variantKey}-cell variant-cell`;
 
-        TRACKS.forEach((trackKey) => {
+        TRACKS.forEach((trackKey, trackIndex) => {
           const track = question.tracks?.[trackKey];
           if (!track) {
             return;
@@ -533,6 +533,7 @@
           const meta = getTrackMeta(trackKey);
           const block = document.createElement("section");
           block.className = "track-block";
+          block.dataset.trackIndex = String(trackIndex);
 
           const head = document.createElement("div");
           head.className = "track-head";
@@ -587,6 +588,51 @@
         });
 
         return cell;
+      }
+
+      let alignRaf = 0;
+
+      function alignTrackBlocksByRow() {
+        const rows = dom.seriesContainer.querySelectorAll("tbody tr");
+
+        rows.forEach((row) => {
+          row.querySelectorAll(".track-block[data-track-index]").forEach((block) => {
+            block.style.minHeight = "";
+          });
+
+          const variantCells = Array.from(row.querySelectorAll("td.variant-cell"));
+          if (variantCells.length === 0) {
+            return;
+          }
+
+          for (let trackIndex = 0; trackIndex < TRACKS.length; trackIndex += 1) {
+            const blocks = variantCells
+              .map((cell) => cell.querySelector(`.track-block[data-track-index="${trackIndex}"]`))
+              .filter(Boolean);
+
+            if (blocks.length === 0) {
+              continue;
+            }
+
+            const maxHeight = Math.ceil(
+              Math.max(...blocks.map((block) => block.getBoundingClientRect().height))
+            );
+
+            blocks.forEach((block) => {
+              block.style.minHeight = `${maxHeight}px`;
+            });
+          }
+        });
+      }
+
+      function scheduleTrackAlignment() {
+        if (alignRaf) {
+          cancelAnimationFrame(alignRaf);
+        }
+        alignRaf = requestAnimationFrame(() => {
+          alignRaf = 0;
+          alignTrackBlocksByRow();
+        });
       }
 
       function renderQuestionCell(question) {
@@ -779,6 +825,8 @@
         } else {
           dom.resultHint.textContent = `Поиск «${state.query.trim()}»: найдено вопросов ${totalQuestions}.`;
         }
+
+        scheduleTrackAlignment();
       }
 
       function readEmbeddedData() {
@@ -824,6 +872,10 @@
         dom.printBtn.addEventListener("click", () => {
           window.print();
         });
+
+        window.addEventListener("resize", () => {
+          scheduleTrackAlignment();
+        });
       }
 
       async function bootstrap() {
@@ -833,6 +885,11 @@
           state.data = await loadData();
           dom.projectTitle.textContent = state.data.projectTitle || "Script Planner — Табличный формат";
           render();
+          if (document.fonts?.ready) {
+            document.fonts.ready.then(() => {
+              scheduleTrackAlignment();
+            });
+          }
         } catch (error) {
           console.error(error);
           dom.seriesContainer.innerHTML = "";
